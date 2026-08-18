@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Connect Job Portal</title>
+<style>
+*{
+box-sizing:border-box;
+}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#eef4ff;
+}
+/* HEADER */
+header{
+background:#123c73;
+color:white;
+padding:20px;
+text-align:center;
+}
+header h1{
+margin:0 0 15px;
+}
+nav button{
+background:transparent;
+color:white;
+border:1px solid white;
+padding:8px 18px;
+margin:5px;
+border-radius:5px;
+cursor:pointer;
+}
+nav button:hover{
+background:white;
+color:#123c73;
+}
+/* HOME */
+.hero{
+text-align:center;
+padding:60px 20px;
+}
+.card{
+max-width:700px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 0 15px #aaa;
+}
+.card button,
+form button{
+padding:12px 20px;
+margin:10px 5px;
+font-size:16px;
+background:#198754;
+color:white;
+border:0;
+border-radius:6px;
+cursor:pointer;
+}
+.card button:hover,
+form button:hover{
+background:#146c43;
+}
+/* REGISTER */
+#registerPage{
+display:none;
+min-height:100vh;
+padding:40px 10px;
+background:linear-gradient(
+rgba(0,0,0,.5),
+rgba(0,0,0,.5)
+),
+url("https://images.unsplash.com/photo-1521791136064-
+7986c2920216?auto=format&fit=crop&w=1500&q=80")
+center/cover fixed;
+}
+.form-box{
+background:white;
+padding:25px;
+width:100%;
+max-width:450px;
+margin:auto;
+border-radius:12px;
+box-shadow:0 0 15px #444;
+}
+.form-box h2{
+text-align:center;
+color:#198754;
+}
+label{
+display:block;
+margin-top:12px;
+font-weight:bold;
+}
+input{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:1px solid #aaa;
+border-radius:5px;
+}
+.error{
+color:red;
+font-size:12px;
+margin-top:3px;
+}
+.back-btn{
+background:#123c73 !important;
+}
+.back-btn:hover{
+background:#0b2c55 !important;
+}
+/* SUCCESS */
+#success{
+display:none;
+text-align:center;
+color:#198754;
+font-weight:bold;
+margin-top:15px;
+}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<header>
+<h1>CAREER CONNECT</h1>
+<nav>
+<button onclick="showHome()">Home</button>
+<button onclick="showRegister()">Register</button>
+<button onclick="findJobs()">Find Jobs</button>
+</nav>
+</header>
+<!-- HOME PAGE -->
+<section id="homePage">
+<div class="hero">
+<div class="card">
+<h2>Welcome to Career Connect</h2>
+<p id="msg"></p>
+<p id="date"></p>
+<p id="details"></p>
+<button onclick="showRegister()">
+Register Now
+</button>
+<button onclick="findJobs()">
+Explore Jobs
+</button>
+<button onclick="showJobCount()">
+View Job Count
+</button>
+<button onclick="contactUs()">
+Contact Us
+</button>
+<p id="output"></p>
+</div>
+</div>
+</section>
+<!-- REGISTRATION PAGE -->
+<section id="registerPage">
+<div class="form-box">
+<h2>Job Seeker Registration</h2>
+<form id="registrationForm">
+<label for="fn">First Name</label>
+<input type="text" id="fn">
+<div class="error" id="e1"></div>
+<label for="ln">Last Name</label>
+<input type="text" id="ln">
+<div class="error" id="e2"></div>
+<label for="em">Email</label>
+<input type="email" id="em">
+<div class="error" id="e3"></div>
+<label for="ph">Phone</label>
+<input type="text" id="ph">
+<div class="error" id="e4"></div>
+<label for="pw">Password</label>
+<input type="password" id="pw">
+<div class="error" id="e5"></div>
+<label for="jt">Desired Job Title</label>
+<input type="text" id="jt">
+<div class="error" id="e6"></div>
+<label for="ex">Years of Experience</label>
+<input type="number" id="ex" min="0">
+<div class="error" id="e7"></div>
+<label for="li">LinkedIn</label>
+<input type="url" id="li"
+placeholder="https://linkedin.com/in/...">
+<div class="error" id="e8"></div>
+<label for="gh">GitHub</label>
+<input type="url" id="gh"
+placeholder="https://github.com/...">
+<div class="error" id="e9"></div>
+<label for="rf">Resume</label>
+<input type="file" id="rf"
+accept=".pdf,.doc,.docx">
+<div class="error" id="e10"></div>
+<button type="submit">
+Create Account
+</button>
+<button type="button"
+class="back-btn"
+onclick="showHome()">
+Back to Home
+</button>
+</form>
+<div id="success">
+Registration Successful!
+</div>
+</div>
+</section>
+<script>
+/* STRING OBJECT */
+let message = new String(
+"Welcome to Career Connect"
+);
+document.getElementById("msg").innerHTML =
+message.toUpperCase() +
+"<br>Length : " +
+message.length;
+/* DATE OBJECT */
+let today = new Date();
+document.getElementById("date").innerHTML =
+"<b>Date :</b> " +
+today.toDateString() +
+"<br><b>Time :</b> " +
+today.toLocaleTimeString();
+/* OBJECT */
+let portal = {
+name: "Career Connect",
+company: "Career Solutions",
+jobs: 4200,
+location: "India"
+};
+document.getElementById("details").innerHTML =
+"<h3>Portal Information</h3>" +
+"Portal Name : " + portal.name +
+"<br>Company : " + portal.company +
+"<br>Available Jobs : " + portal.jobs +
+"<br>Location : " + portal.location;
+/* HOME BUTTON */
+function showHome(){
+document.getElementById("homePage").style.display =
+"block";
+document.getElementById("registerPage").style.display =
+"none";
+window.scrollTo(0,0);
+}
+/* REGISTER BUTTON */
+function showRegister(){
+document.getElementById("homePage").style.display =
+"none";
+document.getElementById("registerPage").style.display =
+"block";
+window.scrollTo(0,0);
+}
+/* FIND JOBS BUTTON */
+function findJobs(){
+window.open(
+"https://www.linkedin.com/jobs/",
+"_blank"
+);
+}
+/* JOB COUNT BUTTON */
+function showJobCount(){
+document.getElementById("output").innerHTML =
+"<b>" +
+portal.jobs +
+" jobs</b> are currently available.";
+}
+/* CONTACT BUTTON */
+function contactUs(){
+document.getElementById("output").innerHTML =
+"<b>Contact Us</b><br>" +
+"Email: careers@careerconnect.com<br>" +
+"Phone: +91 98765 43210";
+}
+/* REGISTRATION VALIDATION */
+document.getElementById(
+"registrationForm"
+).addEventListener("submit",function(e){
+e.preventDefault();
+document.querySelectorAll(".error")
+.forEach(function(el){
+el.textContent="";
+});
+document.getElementById("success")
+.style.display="none";
+let valid=true;
+/* REQUIRED FIELD */
+function required(id,error,message){
+let value =
+document.getElementById(id)
+.value.trim();
+if(value===""){
+document.getElementById(error)
+.textContent=message;
+valid=false;
+}
+}
+required(
+"fn",
+"e1",
+"First name required"
+);
+required(
+"ln",
+"e2",
+"Last name required"
+);
+required(
+"jt",
+"e6",
+"Job title required"
+);
+/* EMAIL */
+let email =
+document.getElementById("em").value;
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+.test(email)){
+document.getElementById("e3")
+.textContent=
+"Valid email required";
+valid=false;
+}
+/* PHONE */
+let phone =
+document.getElementById("ph").value;
+if(!/^\d{10}$/.test(phone)){
+document.getElementById("e4")
+.textContent=
+"10-digit phone required";
+valid=false;
+}
+/* PASSWORD */
+let password =
+document.getElementById("pw").value;
+if(password.length<6){
+document.getElementById("e5")
+.textContent=
+"Minimum 6 characters";
+valid=false;
+}
+/* EXPERIENCE */
+let experience =
+document.getElementById("ex").value;
+if(experience==="" ||
+Number(experience)<0){
+document.getElementById("e7")
+.textContent=
+"Valid experience required";
+valid=false;
+}
+/* LINKEDIN */
+let linkedin =
+document.getElementById("li").value;
+if(!/^https?:\/\//.test(linkedin)){
+document.getElementById("e8")
+.textContent=
+"Valid LinkedIn URL required";
+valid=false;
+}
+/* GITHUB */
+let github =
+document.getElementById("gh").value;
+if(!/^https?:\/\//.test(github)){
+document.getElementById("e9")
+.textContent=
+"Valid GitHub URL required";
+valid=false;
+}
+/* RESUME */
+let file =
+document.getElementById("rf");
+if(file.files.length===0){
+document.getElementById("e10")
+.textContent=
+"Upload resume";
+valid=false;
+}else{
+let fileName =
+file.files[0].name;
+if(!/\.(pdf|doc|docx)$/i
+.test(fileName)){
+document.getElementById("e10")
+.textContent=
+"PDF/DOC/DOCX only";
+valid=false;
+}
+}
+/* SUCCESS */
+if(valid){
+document.getElementById("success")
+.style.display="block";
+alert(
+"Registration Successful!"
+);
+document.getElementById(
+"registrationForm"
+).reset();
+window.scrollTo(0,0);
+}
+});
+</script>
+</body>
+</html>
+
